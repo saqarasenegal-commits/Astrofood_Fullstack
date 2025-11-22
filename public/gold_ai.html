@@ -1,0 +1,923 @@
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AstroFood Premium Gold – Boutique & Chef-AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="AstroFood Premium Gold : recettes IA personnalisées par signe + boutique de packs digitaux + Chat-AI."
+    />
+    <style>
+      :root {
+        --gold: #fbbf24;
+        --amber: #f59e0b;
+        --bg: radial-gradient(circle at top, #0f172a, #020617 65%);
+        --card-bg: rgba(15, 23, 42, 0.96);
+        --border: #4b5563;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: #e5e7eb;
+        min-height: 100vh;
+      }
+      .page {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 1.5rem 1rem 5rem;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1.25rem;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.05), transparent),
+          rgba(15, 23, 42, 0.9);
+        backdrop-filter: blur(18px);
+        margin-bottom: 1.75rem;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .logo-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        background: conic-gradient(from 160deg, var(--gold), var(--amber), #f97316, var(--gold));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 22px rgba(251, 191, 36, 0.7);
+        font-weight: 800;
+        font-size: 1.1rem;
+        color: #0f172a;
+      }
+      .brand-text-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+      .brand-text-sub {
+        font-size: 0.75rem;
+        color: #9ca3af;
+      }
+      .badge {
+        padding: 0.25rem 0.7rem;
+        border-radius: 999px;
+        border: 1px solid rgba(251, 191, 36, 0.7);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #facc15;
+        background: linear-gradient(to right, rgba(24, 24, 27, 0.9), rgba(12, 10, 9, 0.9));
+      }
+
+      h1 {
+        font-size: 1.9rem;
+        margin: 0 0 0.5rem;
+      }
+      .hero {
+        padding: 1.8rem 1.6rem;
+        border-radius: 1.5rem;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.06), transparent),
+          radial-gradient(circle at bottom right, rgba(251, 191, 36, 0.12), transparent),
+          rgba(15, 23, 42, 0.96);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.7);
+        margin-bottom: 2rem;
+        display: grid;
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1.1fr);
+        gap: 1.5rem;
+      }
+      .hero-sub {
+        font-size: 0.9rem;
+        color: #d1d5db;
+      }
+      .hero-note {
+        font-size: 0.8rem;
+        color: #9ca3af;
+        margin-top: 0.5rem;
+      }
+      @media (max-width: 800px) {
+        .hero {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+          border-radius: 1rem;
+        }
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.7rem;
+      }
+      .pill {
+        font-size: 0.7rem;
+        border-radius: 999px;
+        padding: 0.25rem 0.65rem;
+        border: 1px solid rgba(148, 163, 184, 0.6);
+        color: #e5e7eb;
+      }
+
+      .card {
+        border-radius: 1.25rem;
+        border: 1px solid var(--border);
+        background: var(--card-bg);
+        padding: 1.4rem 1.3rem;
+        margin-bottom: 1.8rem;
+      }
+      .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+      }
+      .card-title {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+      .card-sub {
+        font-size: 0.8rem;
+        color: #9ca3af;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.2fr);
+        gap: 1.2rem;
+      }
+      @media (max-width: 900px) {
+        .grid-2 {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      label {
+        font-size: 0.8rem;
+        color: #e5e7eb;
+        display: block;
+        margin-bottom: 0.3rem;
+      }
+      select,
+      input {
+        width: 100%;
+        padding: 0.5rem 0.6rem;
+        border-radius: 0.75rem;
+        border: 1px solid rgba(148, 163, 184, 0.9);
+        background: rgba(15, 23, 42, 0.9);
+        color: #e5e7eb;
+        font-size: 0.85rem;
+      }
+      select:focus,
+      input:focus {
+        outline: none;
+        border-color: var(--gold);
+        box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.4);
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      .row > div {
+        flex: 1 1 140px;
+      }
+
+      .btn {
+        border: none;
+        border-radius: 999px;
+        padding: 0.55rem 1.1rem;
+        font-size: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        cursor: pointer;
+        background: linear-gradient(to right, var(--gold), var(--amber));
+        color: #1f2937;
+        font-weight: 600;
+        margin-top: 0.75rem;
+        box-shadow: 0 10px 28px rgba(250, 204, 21, 0.35);
+      }
+      .btn-secondary {
+        background: transparent;
+        color: #e5e7eb;
+        border: 1px solid rgba(148, 163, 184, 0.8);
+        box-shadow: none;
+      }
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: wait;
+        box-shadow: none;
+      }
+
+      .recipes-list {
+        margin-top: 0.5rem;
+        display: grid;
+        gap: 0.8rem;
+        max-height: 360px;
+        overflow-y: auto;
+        padding-right: 0.3rem;
+      }
+      .recipe-card {
+        border-radius: 1rem;
+        border: 1px solid rgba(55, 65, 81, 0.9);
+        padding: 0.8rem 0.9rem;
+        background: radial-gradient(circle at top left, rgba(31, 41, 55, 0.9), rgba(15, 23, 42, 0.95));
+      }
+      .recipe-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #facc15;
+        margin-bottom: 0.25rem;
+      }
+      .recipe-desc {
+        font-size: 0.8rem;
+        color: #d1d5db;
+        margin-bottom: 0.35rem;
+      }
+      .recipe-meta {
+        font-size: 0.75rem;
+        color: #9ca3af;
+        margin-bottom: 0.3rem;
+      }
+      .recipe-section-label {
+        font-size: 0.78rem;
+        color: #e5e7eb;
+        margin-top: 0.35rem;
+        margin-bottom: 0.1rem;
+      }
+      ul {
+        margin: 0;
+        padding-left: 1.1rem;
+      }
+      ul li {
+        font-size: 0.78rem;
+        margin-bottom: 0.1rem;
+      }
+
+      .shop-grid {
+        margin-top: 0.8rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 1rem;
+      }
+      .pack-card {
+        border-radius: 1rem;
+        border: 1px solid rgba(55, 65, 81, 0.9);
+        padding: 0.9rem;
+        background: radial-gradient(circle at top right, rgba(251, 191, 36, 0.12), rgba(15, 23, 42, 0.95));
+      }
+      .pack-name {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 0.2rem;
+      }
+      .pack-level {
+        font-size: 0.75rem;
+        color: #facc15;
+        margin-bottom: 0.25rem;
+      }
+      .pack-desc {
+        font-size: 0.8rem;
+        color: #e5e7eb;
+        margin-bottom: 0.4rem;
+      }
+      .pack-price {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #facc15;
+        margin-bottom: 0.4rem;
+      }
+      .pack-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+      .small-text {
+        font-size: 0.75rem;
+        color: #9ca3af;
+      }
+      .status {
+        font-size: 0.75rem;
+        color: #e5e7eb;
+        margin-top: 0.3rem;
+      }
+      .status.error {
+        color: #fecaca;
+      }
+      .status.ok {
+        color: #bbf7d0;
+      }
+
+      /* --- Chat-AI bubble --- */
+      .chat-toggle {
+        position: fixed;
+        right: 1.3rem;
+        bottom: 1.3rem;
+        z-index: 40;
+        border-radius: 999px;
+        border: none;
+        background: radial-gradient(circle at top left, #facc15, #f97316);
+        color: #111827;
+        padding: 0.7rem 1.1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        box-shadow: 0 18px 40px rgba(250, 204, 21, 0.45);
+        cursor: pointer;
+      }
+      .chat-panel {
+        position: fixed;
+        right: 1.3rem;
+        bottom: 4.4rem;
+        width: 320px;
+        max-height: 420px;
+        border-radius: 1.2rem;
+        border: 1px solid rgba(148, 163, 184, 0.8);
+        background: rgba(15, 23, 42, 0.98);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.8);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        z-index: 39;
+      }
+      .chat-header {
+        padding: 0.75rem 0.9rem;
+        border-bottom: 1px solid rgba(51, 65, 85, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.85rem;
+      }
+      .chat-header-title {
+        font-weight: 600;
+      }
+      .chat-header-sub {
+        font-size: 0.7rem;
+        color: #9ca3af;
+      }
+      .chat-close {
+        border: none;
+        background: transparent;
+        color: #9ca3af;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      .chat-messages {
+        padding: 0.75rem 0.9rem;
+        flex: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+        font-size: 0.8rem;
+      }
+      .chat-msg {
+        max-width: 85%;
+        padding: 0.45rem 0.6rem;
+        border-radius: 0.75rem;
+      }
+      .chat-msg.user {
+        align-self: flex-end;
+        background: linear-gradient(to right, var(--gold), var(--amber));
+        color: #111827;
+      }
+      .chat-msg.bot {
+        align-self: flex-start;
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid rgba(55, 65, 81, 0.9);
+      }
+      .chat-input-row {
+        padding: 0.65rem 0.75rem;
+        border-top: 1px solid rgba(51, 65, 85, 0.9);
+        display: flex;
+        gap: 0.45rem;
+        align-items: center;
+      }
+      .chat-input {
+        flex: 1;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.9);
+        background: rgba(15, 23, 42, 0.9);
+        color: #e5e7eb;
+        font-size: 0.8rem;
+        padding: 0.45rem 0.6rem;
+      }
+      .chat-input:focus {
+        outline: none;
+        border-color: var(--gold);
+        box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.4);
+      }
+      .chat-send {
+        border: none;
+        border-radius: 999px;
+        background: linear-gradient(to right, var(--gold), var(--amber));
+        color: #111827;
+        font-size: 0.8rem;
+        padding: 0.45rem 0.7rem;
+        cursor: pointer;
+      }
+      .chat-status {
+        font-size: 0.7rem;
+        color: #9ca3af;
+        padding: 0 0.9rem 0.5rem;
+      }
+
+      @media (max-width: 600px) {
+        .chat-panel {
+          width: calc(100% - 2rem);
+          right: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="brand">
+          <div class="logo-circle">AF</div>
+          <div>
+            <div class="brand-text-title">AstroFood Premium Gold</div>
+            <div class="brand-text-sub">Chef-AI ✦ Recettes astrologiques ✦ Cartes digitales ✦ Chat-AI</div>
+          </div>
+        </div>
+        <div class="badge">Backend sécurisé – API privée</div>
+      </header>
+
+      <section class="hero">
+        <div>
+          <h1>Chef-AI · Générateur de recettes par signe</h1>
+          <p class="hero-sub">
+            Choisis ton signe, ton état, le repas et la langue : ton serveur <strong>Chef-AI</strong> te renvoie
+            <strong>3 recettes complètes</strong> depuis ton backend AstroFood, sans exposer tes secrets.
+          </p>
+          <p class="hero-note">
+            Les appels sont envoyés à <code>/api/chefai</code>. Aucune clé OpenAI, aucune recette interne n’apparaît
+            dans le code du navigateur.
+          </p>
+          <div class="pill-row">
+            <span class="pill">🔒 Clé OpenAI cachée (.env)</span>
+            <span class="pill">🧠 Logiciel métier côté serveur</span>
+            <span class="pill">🛒 Boutique connectée à /api/packs</span>
+            <span class="pill">💬 Chat-AI sur /api/chat</span>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Paramètres Chef-AI</div>
+                <div class="card-sub">Signe ✧ état ✧ repas ✧ langue</div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="sign">Signe astrologique</label>
+                <select id="sign">
+                  <option value="Bélier">Bélier ♈</option>
+                  <option value="Taureau">Taureau ♉</option>
+                  <option value="Gémeaux">Gémeaux ♊</option>
+                  <option value="Cancer">Cancer ♋</option>
+                  <option value="Lion">Lion ♌</option>
+                  <option value="Vierge">Vierge ♍</option>
+                  <option value="Balance">Balance ♎</option>
+                  <option value="Scorpion">Scorpion ♏</option>
+                  <option value="Sagittaire">Sagittaire ♐</option>
+                  <option value="Capricorne">Capricorne ♑</option>
+                  <option value="Verseau">Verseau ♒</option>
+                  <option value="Poissons">Poissons ♓</option>
+                </select>
+              </div>
+              <div>
+                <label for="state">État énergétique</label>
+                <select id="state">
+                  <option value="équilibre">Équilibre</option>
+                  <option value="fatigue">Fatigue</option>
+                  <option value="détox">Détox</option>
+                  <option value="sport">Sport & performance</option>
+                  <option value="romance">Love & Romance</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row" style="margin-top: 0.7rem;">
+              <div>
+                <label for="mealType">Type de repas</label>
+                <select id="mealType">
+                  <option value="petit-déjeuner">Petit-déjeuner</option>
+                  <option value="déjeuner">Déjeuner</option>
+                  <option value="dîner">Dîner</option>
+                </select>
+              </div>
+              <div>
+                <label for="lang">Langue</label>
+                <select id="lang">
+                  <option value="fr">Français</option>
+                  <option value="en">English</option>
+                  <option value="ar">العربية</option>
+                </select>
+              </div>
+            </div>
+
+            <button id="btn-generate" class="btn">
+              🍳 Générer 3 recettes IA
+            </button>
+            <div id="chefai-status" class="status"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Recettes générées</div>
+            <div class="card-sub">Résultat de l’API <code>/api/chefai</code></div>
+          </div>
+          <button id="btn-clear-recipes" class="btn-secondary btn" type="button">
+            🧹 Effacer les résultats
+          </button>
+        </div>
+        <div id="recipes-list" class="recipes-list">
+          <div class="small-text">
+            Les recettes générées apparaîtront ici : titre, description, ingrédients et étapes. Ce n’est qu’un affichage
+            frontend, les vraies règles restent dans ton backend.
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Boutique AstroFood – Packs digitaux</div>
+            <div class="card-sub">
+              Packs exposés par <code>/api/packs</code> (meta uniquement). Le paiement réel se fait sur LemonSqueezy.
+            </div>
+          </div>
+          <button id="btn-reload-packs" class="btn-secondary btn" type="button">
+            🔁 Recharger les packs
+          </button>
+        </div>
+
+        <div id="shop-status" class="status"></div>
+
+        <div id="shop-grid" class="shop-grid">
+          <div class="small-text">
+            Chargement des packs… Si rien ne s’affiche, vérifie la route <code>/api/packs</code> côté serveur.
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Chat-AI bubble -->
+    <button class="chat-toggle" id="chat-toggle">
+      💬 Chat-AI
+    </button>
+
+    <div class="chat-panel" id="chat-panel">
+      <div class="chat-header">
+        <div>
+          <div class="chat-header-title">AstroFood Chat-AI</div>
+          <div class="chat-header-sub">Questions sur recettes, préparation, nutrition…</div>
+        </div>
+        <button class="chat-close" id="chat-close" aria-label="Fermer le chat">×</button>
+      </div>
+      <div class="chat-messages" id="chat-messages">
+        <div class="chat-msg bot">
+          Bonjour ✨ Je suis ton assistant AstroFood. Pose-moi une question sur une recette, une cuisson, une variante
+          plus saine ou un menu adapté à ton signe.
+        </div>
+      </div>
+      <div class="chat-status" id="chat-status"></div>
+      <div class="chat-input-row">
+        <input
+          id="chat-input"
+          class="chat-input"
+          type="text"
+          placeholder="Pose ta question (ex: comment préparer le dîner du Lion ?)"
+        />
+        <button class="chat-send" id="chat-send">➤</button>
+      </div>
+    </div>
+
+    <script>
+      const API_BASE = window.location.origin;
+
+      const btnGenerate = document.getElementById("btn-generate");
+      const btnClearRecipes = document.getElementById("btn-clear-recipes");
+      const btnReloadPacks = document.getElementById("btn-reload-packs");
+      const statusChefAI = document.getElementById("chefai-status");
+      const recipesList = document.getElementById("recipes-list");
+      const shopGrid = document.getElementById("shop-grid");
+      const shopStatus = document.getElementById("shop-status");
+
+      const chatToggle = document.getElementById("chat-toggle");
+      const chatPanel = document.getElementById("chat-panel");
+      const chatClose = document.getElementById("chat-close");
+      const chatMessages = document.getElementById("chat-messages");
+      const chatInput = document.getElementById("chat-input");
+      const chatSend = document.getElementById("chat-send");
+      const chatStatus = document.getElementById("chat-status");
+
+      function setChefAIStatus(msg, isError = false) {
+        statusChefAI.textContent = msg || "";
+        statusChefAI.className = "status " + (msg ? (isError ? "error" : "ok") : "");
+      }
+
+      function setShopStatus(msg, isError = false) {
+        shopStatus.textContent = msg || "";
+        shopStatus.className = "status " + (msg ? (isError ? "error" : "ok") : "");
+      }
+
+      function renderRecipes(recipes, labelPrefix = "") {
+        recipesList.innerHTML = "";
+        if (!recipes || !recipes.length) {
+          recipesList.innerHTML =
+            '<div class="small-text">Aucune recette reçue. Vérifie ton backend ou ta clé OpenAI.</div>';
+          return;
+        }
+
+        for (const rec of recipes) {
+          const card = document.createElement("div");
+          card.className = "recipe-card";
+
+          const title = document.createElement("div");
+          title.className = "recipe-title";
+          title.textContent = (labelPrefix ? labelPrefix + " · " : "") + (rec.title || "Recette sans titre");
+
+          const desc = document.createElement("div");
+          desc.className = "recipe-desc";
+          desc.textContent = rec.description || "Recette générée par AstroFood Chef-AI.";
+
+          const meta = document.createElement("div");
+          meta.className = "recipe-meta";
+          if (rec.image) {
+            meta.textContent = "📸 Image suggérée : " + rec.image;
+          } else {
+            meta.textContent = "📸 Image IA : tu peux afficher une photo générique selon le signe & repas.";
+          }
+
+          const ingLabel = document.createElement("div");
+          ingLabel.className = "recipe-section-label";
+          ingLabel.textContent = "Ingrédients";
+
+          const ingList = document.createElement("ul");
+          (rec.ingredients || []).forEach((ing) => {
+            const li = document.createElement("li");
+            li.textContent = ing;
+            ingList.appendChild(li);
+          });
+
+          const stepsLabel = document.createElement("div");
+          stepsLabel.className = "recipe-section-label";
+          stepsLabel.textContent = "Étapes de préparation";
+
+          const stepsList = document.createElement("ul");
+          (rec.steps || []).forEach((st) => {
+            const li = document.createElement("li");
+            li.textContent = st;
+            stepsList.appendChild(li);
+          });
+
+          card.appendChild(title);
+          card.appendChild(desc);
+          card.appendChild(meta);
+          card.appendChild(ingLabel);
+          card.appendChild(ingList);
+          card.appendChild(stepsLabel);
+          card.appendChild(stepsList);
+
+          recipesList.appendChild(card);
+        }
+      }
+
+      async function callChefAI(params, labelPrefix = "") {
+        try {
+          btnGenerate.disabled = true;
+          setChefAIStatus("Génération en cours…", false);
+
+          const resp = await fetch(API_BASE + "/api/chefai", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(params),
+          });
+
+          const data = await resp.json();
+
+          if (!data.ok) {
+            console.error("Chef-AI error:", data);
+            setChefAIStatus("Erreur: " + (data.error || "Réponse invalide."), true);
+            return;
+          }
+
+          renderRecipes(data.recipes, labelPrefix);
+          setChefAIStatus("Recettes générées avec succès ✔️", false);
+        } catch (err) {
+          console.error(err);
+          setChefAIStatus("Erreur réseau ou serveur.", true);
+        } finally {
+          btnGenerate.disabled = false;
+        }
+      }
+
+      btnGenerate.addEventListener("click", () => {
+        const sign = document.getElementById("sign").value;
+        const state = document.getElementById("state").value;
+        const mealType = document.getElementById("mealType").value;
+        const lang = document.getElementById("lang").value;
+
+        callChefAI({ sign, state, mealType, lang }, "");
+      });
+
+      btnClearRecipes.addEventListener("click", () => {
+        recipesList.innerHTML =
+          '<div class="small-text">Résultats effacés. Clique sur "Générer 3 recettes IA" pour relancer.</div>';
+        setChefAIStatus("");
+      });
+
+      async function loadPacks() {
+        try {
+          setShopStatus("Chargement des packs…", false);
+          const resp = await fetch(API_BASE + "/api/packs");
+          const data = await resp.json();
+
+          if (!data.ok) {
+            setShopStatus("Erreur: impossible de charger les packs.", true);
+            return;
+          }
+
+          const packs = data.packs || [];
+          shopGrid.innerHTML = "";
+
+          if (!packs.length) {
+            shopGrid.innerHTML =
+              '<div class="small-text">Aucun pack défini pour le moment. Ajoute-les côté backend.</div>';
+            setShopStatus("");
+            return;
+          }
+
+          for (const pack of packs) {
+            const card = document.createElement("div");
+            card.className = "pack-card";
+
+            const name = document.createElement("div");
+            name.className = "pack-name";
+            name.textContent = pack.name || "Pack AstroFood";
+
+            const level = document.createElement("div");
+            level.className = "pack-level";
+            level.textContent = pack.level || "Edition AstroFood";
+
+            const desc = document.createElement("div");
+            desc.className = "pack-desc";
+            desc.textContent =
+              pack.description ||
+              "Pack digital AstroFood Premium. Connecte ce bouton à ta page LemonSqueezy.";
+
+            const price = document.createElement("div");
+            price.className = "pack-price";
+            price.textContent =
+              (pack.priceCfa ? pack.priceCfa.toLocaleString("fr-FR") : "—") +
+              " " +
+              (pack.currency || "XOF");
+
+            const actions = document.createElement("div");
+            actions.className = "pack-actions";
+
+            const btnTest = document.createElement("button");
+            btnTest.className = "btn";
+            btnTest.type = "button";
+            btnTest.textContent = "🍽 Tester 1 recette IA";
+            btnTest.addEventListener("click", () => {
+              const sign = document.getElementById("sign").value || "Lion";
+              callChefAI(
+                {
+                  sign,
+                  state: "équilibre",
+                  mealType: "dîner",
+                  lang: "fr",
+                },
+                pack.name || "Pack"
+              );
+            });
+
+            actions.appendChild(btnTest);
+
+            if (pack.checkoutUrl) {
+              const link = document.createElement("a");
+              link.href = pack.checkoutUrl;
+              link.target = "_blank";
+              link.rel = "noopener noreferrer";
+              link.className = "btn btn-secondary";
+              link.textContent = "🛒 Voir le pack";
+              actions.appendChild(link);
+            }
+
+            card.appendChild(name);
+            card.appendChild(level);
+            card.appendChild(desc);
+            card.appendChild(price);
+            card.appendChild(actions);
+
+            shopGrid.appendChild(card);
+          }
+
+          setShopStatus("Packs chargés depuis /api/packs ✔️", false);
+        } catch (err) {
+          console.error(err);
+          setShopStatus("Erreur lors du chargement des packs.", true);
+        }
+      }
+
+      btnReloadPacks.addEventListener("click", loadPacks);
+
+      // --- Chat-AI logic ---
+      function appendChatMessage(role, text) {
+        const msg = document.createElement("div");
+        msg.className = "chat-msg " + (role === "user" ? "user" : "bot");
+        msg.textContent = text;
+        chatMessages.appendChild(msg);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function setChatStatus(msg) {
+        chatStatus.textContent = msg || "";
+      }
+
+      async function sendChatMessage() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+
+        const sign = document.getElementById("sign").value || "général";
+        const lang = document.getElementById("lang").value || "fr";
+
+        appendChatMessage("user", text);
+        chatInput.value = "";
+        setChatStatus("AstroFood réfléchit… ✨");
+        chatSend.disabled = true;
+
+        try {
+          const resp = await fetch(API_BASE + "/api/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: text, sign, lang }),
+          });
+
+          const data = await resp.json();
+          if (!data.ok) {
+            appendChatMessage("bot", "Erreur: " + (data.error || "réponse invalide."));
+          } else {
+            appendChatMessage("bot", data.reply || "Je n'ai pas bien compris, peux-tu reformuler ?");
+          }
+        } catch (err) {
+          console.error(err);
+          appendChatMessage("bot", "Erreur réseau ou serveur, réessaie dans un instant.");
+        } finally {
+          setChatStatus("");
+          chatSend.disabled = false;
+          chatInput.focus();
+        }
+      }
+
+      chatToggle.addEventListener("click", () => {
+        chatPanel.style.display = chatPanel.style.display === "flex" ? "none" : "flex";
+      });
+
+      chatClose.addEventListener("click", () => {
+        chatPanel.style.display = "none";
+      });
+
+      chatSend.addEventListener("click", sendChatMessage);
+      chatInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          sendChatMessage();
+        }
+      });
+
+      // Charger les packs au chargement de la page
+      document.addEventListener("DOMContentLoaded", () => {
+        loadPacks();
+      });
+    </script>
+  </body>
+</html>
