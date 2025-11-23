@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AstroFood Premium Gold – Boutique officielle</title>
+
+  <meta name="description" content="Boutique officielle AstroFood Premium Gold : cartes digitales par signe, packs 2 / 4 / 12 signes et abonnement Chef-AI.">
+
+  <style>
+    :root {
+      --bg: radial-gradient(circle at top, #0f172a, #020617 70%);
+      --gold: #fbbf24;
+      --gold-soft: #facc6b;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --card-bg: rgba(15, 23, 42, 0.95);
+      --border-soft: rgba(148, 163, 184, 0.45);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* HEADER */
+
+    header {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: linear-gradient(to bottom,
+        rgba(15, 23, 42, 0.98),
+        rgba(15, 23, 42, 0.8)
+      );
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .brand img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--gold-soft);
+      box-shadow: 0 0 18px rgba(251, 191, 36, 0.5);
+      object-fit: cover;
+    }
+
+    .brand-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      gap: 0.45rem;
+      font-size: 0.82rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: 0.18s ease;
+    }
+
+    nav a:hover {
+      border-color: rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .nav-primary {
+      border-color: rgba(250, 204, 21, 0.9);
+      background: radial-gradient(circle at top,
+        rgba(251, 191, 36, 0.3),
+        rgba(15, 23, 42, 0.98)
+      );
+      box-shadow: 0 0 16px rgba(251, 191, 36, 0.45);
+    }
+
+    /* MAIN */
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1.75rem 1rem 2.5rem;
+    }
+
+    .hero-kicker {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-kicker::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold-soft));
+    }
+
+    .hero-title {
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      font-weight: 700;
+      color: #f9fafb;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-sub {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 640px;
+      line-height: 1.6;
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .badge span {
+      color: var(--gold-soft);
+    }
+
+    /* GRID PRODUITS */
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    @media (max-width: 980px) {
+      .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      main { padding-inline: 0.75rem; }
+      header { padding-inline: 0.75rem; }
+      .products-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .product-card {
+      background: linear-gradient(
+        145deg,
+        rgba(15, 23, 42, 0.97),
+        rgba(15, 23, 42, 0.88)
+      );
+      border-radius: 1.1rem;
+      border: 1px solid var(--border-soft);
+      box-shadow:
+        0 20px 40px rgba(15, 23, 42, 0.85),
+        0 0 0 0.5px rgba(15, 23, 42, 0.9);
+      padding: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background: radial-gradient(circle at -10% -10%,
+        rgba(251, 191, 36, 0.18),
+        transparent 65%
+      );
+      opacity: 0.7;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .product-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .product-image {
+      border-radius: 0.8rem;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: radial-gradient(circle at top,
+        rgba(15, 23, 42, 1),
+        rgba(15, 23, 42, 0.9)
+      );
+    }
+
+    .product-image img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .product-title-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.4rem;
+      align-items: flex-start;
+    }
+
+    .product-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #f9fafb;
+    }
+
+    .product-tag {
+      font-size: 0.7rem;
+      border-radius: 999px;
+      padding: 0.16rem 0.5rem;
+      border: 1px solid rgba(250, 204, 21, 0.85);
+      color: #fef9c3;
+      background: radial-gradient(circle at top,
+        rgba(251, 191, 36, 0.25),
+        rgba(15, 23, 42, 0.98)
+      );
+      white-space: nowrap;
+    }
+
+    .product-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      margin-top: 0.1rem;
+    }
+
+    .price-main {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--gold-soft);
+    }
+
+    .price-main span {
+      font-size: 0.85rem;
+    }
+
+    .price-cfa {
+      font-size: 0.8rem;
+      color: #cbd5f5;
+    }
+
+    .bullets {
+      list-style: none;
+      font-size: 0.76rem;
+      color: #cbd5f5;
+      display: flex;
+      flex-direction: column;
+      gap: 0.28rem;
+      margin-top: 0.35rem;
+    }
+
+    .bullets li {
+      display: flex;
+      gap: 0.35rem;
+    }
+
+    .bullets span.icon {
+      color: var(--gold-soft);
+      font-size: 0.9rem;
+      margin-top: 0.02rem;
+    }
+
+    .card-footer {
+      margin-top: 0.7rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .btn-primary {
+      border-radius: 999px;
+      border: 1px solid rgba(250, 204, 21, 0.95);
+      padding: 0.4rem 0.95rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: radial-gradient(circle at top,
+        rgba(251, 191, 36, 0.3),
+        rgba(15, 23, 42, 0.98)
+      );
+      color: #fef9c3;
+      display: inline-flex;
+      gap: 0.3rem;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 0 14px rgba(251, 191, 36, 0.45);
+      transition: 0.17s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 22px rgba(251, 191, 36, 0.65);
+    }
+
+    .btn-ghost {
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.9);
+      padding: 0.33rem 0.75rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: rgba(15, 23, 42, 0.9);
+      cursor: pointer;
+      transition: 0.16s ease;
+    }
+
+    .btn-ghost:hover {
+      color: var(--text);
+      border-style: solid;
+    }
+
+    .ribbon {
+      position: absolute;
+      top: 0.65rem;
+      right: 0.75rem;
+      font-size: 0.67rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 0.16rem 0.52rem;
+      border-radius: 999px;
+      background: linear-gradient(to right,
+        rgba(251, 191, 36, 0.18),
+        rgba(251, 191, 36, 0.03)
+      );
+      color: #fef9c3;
+      border: 1px solid rgba(251, 191, 36, 0.6);
+      backdrop-filter: blur(6px);
+    }
+
+    .info-bar {
+      margin-top: 1.6rem;
+      border-radius: 0.9rem;
+      border: 1px dashed rgba(148, 163, 184, 0.9);
+      padding: 0.8rem 0.9rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    .info-bar span {
+      font-size: 1rem;
+      color: var(--gold-soft);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #6b7280;
+      padding: 1.2rem 0 0.8rem;
+    }
+
+    footer a {
+      color: var(--gold-soft);
+      text-decoration: underline dotted;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <!-- Remplace src par le chemin réel de ton logo -->
+    <img src="packs.png/favicon.ico" alt="AstroFood Premium Gold Logo">
+    <div>
+      <div class="brand-title">AstroFood Premium Gold</div>
+      <div class="brand-sub">Gourmet • Zodiac • Multilingue</div>
+    </div>
+  </div>
+
+  <nav>
+    <!-- Adapte ces liens selon tes fichiers / domaines -->
+    <a href="gold_ai.html">Accueil</a>
+    <a href="astrofood_boutique_final.html">Boutique</a>
+    <a href="activer_achat.html">Activer un achat</a>
+    <a href="https://wa.me/221786599051" target="_blank">WhatsApp</a>
+  </nav>
+</header>
+
+<main>
+  <div class="hero-kicker">Boutique officielle</div>
+  <h1 class="hero-title">Cartes digitales & packs AstroFood Premium Gold</h1>
+  <p class="hero-sub">
+    Choisissez l’offre qui correspond à votre univers : une carte individuelle, un pack de signes
+    ou l’abonnement Chef-AI pour recevoir des recettes illimitées alignées avec votre ciel astrologique.
+  </p>
+  <div class="hero-badges">
+    <div class="badge"><span>✦</span> Téléchargement et accès immédiats après paiement</div>
+    <div class="badge"><span>🌍</span> Contenus FR / EN / AR (progressivement déployés)</div>
+    <div class="badge"><span>🤖</span> IA culinaire Chef-AI disponible sur certaines offres</div>
+  </div>
+
+  <section class="products-grid">
+    <!-- 1. Carte 1 signe -->
+    <article class="product-card">
+      <div class="product-inner">
+        <div class="product-image">
+          <!-- Remplace le fichier par ta carte 1 signe -->
+          <img src="/packs.png/carte-1-signe.png" alt="Carte digitale 1 signe AstroFood Premium">
+        </div>
+
+        <div class="product-title-row">
+          <h2 class="product-title">Carte digitale – 1 signe</h2>
+          <div class="product-tag">Essentiel</div>
+        </div>
+
+        <p class="product-desc">
+          Une carte Premium Gold dédiée à un signe astrologique, avec recettes du jour, boisson
+          signature et message inspirant.
+        </p>
+
+        <div class="price-row">
+          <div class="price-main"><span>$</span>4,99</div>
+          <div class="price-cfa">≈ 3 000&nbsp;CFA</div>
+        </div>
+
+        <ul class="bullets">
+          <li><span class="icon">🍽</span><span>3 repas (petit-déj, déjeuner, dîner) selon l’énergie du signe.</span></li>
+          <li><span class="icon">🍹</span><span>1 boisson signature + 1 phrase poétique.</span></li>
+          <li><span class="icon">🌍</span><span>Base FR, extension EN / AR progressive.</span></li>
+        </ul>
+
+        <div class="card-footer">
+          <!-- Remplace le lien # par ton lien LemonSqueezy 1 signe -->
+           <a class="btn-primary"
+           href="https://astrofoody.lemonsqueezy.com/checkout/buy/TON_PACK"
+           target="_blank">
+            Acheter la carte
+            <span>↗</span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 2. Pack Duo -->
+    <article class="product-card">
+      <div class="product-inner">
+        <div class="product-image">
+          <img src="pack-duo-2-signes.png" alt="Pack Duo 2 signes AstroFood Premium">
+        </div>
+
+        <div class="product-title-row">
+          <h2 class="product-title">Pack Duo – 2 signes</h2>
+          <div class="product-tag">Couple / Duo</div>
+        </div>
+
+        <p class="product-desc">
+          Deux cartes digitales Premium pour deux signes : idéal pour couples, amis ou duo parent–enfant.
+        </p>
+
+        <div class="price-row">
+          <div class="price-main"><span>$</span>7,99</div>
+          <div class="price-cfa">≈ 4 800&nbsp;CFA</div>
+        </div>
+
+        <ul class="bullets">
+          <li><span class="icon">💞</span><span>2 cartes complètes (2 signes au choix).</span></li>
+          <li><span class="icon">🍽</span><span>Menus journaliers + boissons signatures.</span></li>
+          <li><span class="icon">🎁</span><span>Idéal en cadeau digital.</span></li>
+        </ul>
+
+        <div class="card-footer">
+          <!-- Lien LemonSqueezy pack duo -->
+             <a class="btn-primary"
+             href="https://astrofoody.lemonsqueezy.com/checkout/buy/TON_PACK"
+             target="_blank">
+            Acheter le pack Duo
+            <span>💞</span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 3. Pack Famille -->
+    <article class="product-card">
+      <div class="product-inner">
+        <div class="product-image">
+          <img src="pack-famille-4-signes.png" alt="Pack Famille 4 signes AstroFood Premium">
+        </div>
+
+        <div class="product-title-row">
+          <h2 class="product-title">Pack Famille – 4 signes</h2>
+          <div class="product-tag">Famille</div>
+        </div>
+
+        <p class="product-desc">
+          Quatre cartes Premium pour une petite tribu astrologique : famille, colocation ou mini-groupe.
+        </p>
+
+        <div class="price-row">
+          <div class="price-main"><span>$</span>12,99</div>
+          <div class="price-cfa">≈ 8 000&nbsp;CFA</div>
+        </div>
+
+        <ul class="bullets">
+          <li><span class="icon">👨‍👩‍👧‍👦</span><span>4 cartes complètes pour 4 signes.</span></li>
+          <li><span class="icon">🍽</span><span>Idéal pour créer des menus communs qui respectent chaque énergie.</span></li>
+          <li><span class="icon">💡</span><span>Excellent rapport valeur / prix.</span></li>
+        </ul>
+
+        <div class="card-footer">
+          <!-- Lien LemonSqueezy pack famille -->
+            <a class="btn-primary"
+            href="https://astrofoody.lemonsqueezy.com/checkout/buy/TON_PACK"
+            target="_blank">
+            Commander le pack Famille
+            <span>✨</span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 4. Pack 12 signes -->
+    <article class="product-card">
+      <div class="ribbon">Best-seller</div>
+      <div class="product-inner">
+        <div class="product-image">
+          <img src="pack-12-signes.png" alt="Golden Zodiac Pack 12 signes AstroFood Premium">
+        </div>
+
+        <div class="product-title-row">
+          <h2 class="product-title">Golden Zodiac Pack – 12 signes</h2>
+          <div class="product-tag">Complet</div>
+        </div>
+
+        <p class="product-desc">
+          Les 12 cartes digitales AstroFood réunies en un pack Gold : votre univers complet
+          astrologico-culinaire.
+        </p>
+
+        <div class="price-row">
+          <div class="price-main"><span>$</span>19,99</div>
+          <div class="price-cfa">≈ 12 000&nbsp;CFA</div>
+        </div>
+
+        <ul class="bullets">
+          <li><span class="icon">🌌</span><span>12 cartes, une pour chaque signe du zodiaque.</span></li>
+          <li><span class="icon">📚</span><span>Parfait pour créateurs, coachs, astrologues, passionnés.</span></li>
+          <li><span class="icon">🤖</span><span>Accès découverte à Chef-AI (selon version choisie).</span></li>
+        </ul>
+
+        <div class="card-footer">
+          <!-- Lien LemonSqueezy pack 12 -->
+            <a class="btn-primary"
+             href="https://astrofoody.lemonsqueezy.com/checkout/buy/TON_PACK"
+            target="_blank">
+            Acheter le pack 12 signes
+            <span>🌠</span>
+          </a>
+          <a class="btn-ghost" href="pack_12_signes.html">
+            Voir le détail du pack
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- 5. Abonnement Chef-AI -->
+    <article class="product-card">
+      <div class="product-inner">
+        <div class="product-image">
+          <img src="chefai-abonnement.png" alt="Abonnement mensuel Chef-AI AstroFood Premium">
+        </div>
+
+        <div class="product-title-row">
+          <h2 class="product-title">Abonnement mensuel – Chef-AI</h2>
+          <div class="product-tag">IA illimitée</div>
+        </div>
+
+        <p class="product-desc">
+          Votre chef intelligent 24/7 : recettes illimitées, menus personnalisés, variantes africaines
+          et internationales.
+        </p>
+
+        <div class="price-row">
+          <div class="price-main"><span>$</span>7,99</div>
+          <div class="price-cfa">≈ 4 800&nbsp;CFA / mois</div>
+        </div>
+
+        <ul class="bullets">
+          <li><span class="icon">🤖</span><span>Recettes générées par IA selon votre signe, pays, niveau.</span></li>
+          <li><span class="icon">🍲</span><span>Variantes sénégalaises, africaines et internationales.</span></li>
+          <li><span class="icon">⏱</span><span>Réponses instantanées, disponible 24h/24.</span></li>
+        </ul>
+
+        <div class="card-footer">
+          <!-- Lien LemonSqueezy abonnement mensuel -->
+          <a class="btn-primary"
+           href="https://astrofoody.lemonsqueezy.com/checkout/buy/TON_PACK"
+           target="_blank">
+            S’abonner à Chef-AI
+            <span>⚡</span>
+          </a>
+          <a class="btn-ghost" href="activer_achat.html">
+            J’ai déjà un code d’accès
+          </a>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <div class="info-bar">
+    <span>ℹ</span>
+    <p>
+      Les paiements sont traités de façon sécurisée par <strong>LemonSqueezy</strong>.
+      Après l’achat, vous recevez un email avec votre lien ou votre code d’accès.
+      Conservez-le précieusement pour retrouver vos cartes AstroFood Premium Gold.
+    </p>
+  </div>
+</main>
+
+<footer>
+  AstroFood Premium Gold – Projet créatif culinaire & astrologique.
+  Support direct : <a href="https://wa.me/221786599051" target="_blank">WhatsApp</a>.
+</footer>
+
+</body>
+</html>
