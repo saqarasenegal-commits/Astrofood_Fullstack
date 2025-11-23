@@ -715,7 +715,7 @@
           btnGenerate.disabled = true;
           setChefAIStatus("Génération en cours…", false);
 
-          const resp = await fetch(API_BASE + "/api/chefai", {
+          const resp = await fetch(API_BASE+ "/api/chefai", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(params),
@@ -757,7 +757,7 @@
       async function loadPacks() {
         try {
           setShopStatus("Chargement des packs…", false);
-          const resp = await fetch(API_BASE + "/api/packs");
+          const resp = await fetch( "/api/packs");
           const data = await resp.json();
 
           if (!data.ok) {
