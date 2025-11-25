@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="fr">
   <head>
@@ -327,12 +328,12 @@
         color: #bbf7d0;
       }
       .ai-image-wrapper {
-  margin-bottom: 1.25rem;
-  text-align: center;
-   }
+        margin-bottom: 1.25rem;
+       text-align: center;
+     }
 
-    .ai-image {
-      max-width: 100%;
+       .ai-image {
+       max-width: 100%;
        border-radius: 18px;
        border: 1px solid var(--gold, #fbbf24);
         box-shadow: 0 18px 35px rgba(0, 0, 0, 0.45);
@@ -720,7 +721,7 @@
       }
 
    function renderRecipes(recipes, labelPrefix = "", imageUrl = null) {
-   recipesList.innerHTML = "";
+  recipesList.innerHTML = "";
 
   if (!recipes || !recipes.length) {
     recipesList.innerHTML =
@@ -728,7 +729,7 @@
     return;
   }
 
-  // 🖼️ Bloc image IA global (s'il y en a une)
+  // 🖼️ Bloc pour afficher l'image IA tout en haut
   if (imageUrl) {
     const imgWrapper = document.createElement("div");
     imgWrapper.className = "ai-image-wrapper";
@@ -736,13 +737,13 @@
     const img = document.createElement("img");
     img.className = "ai-image";
     img.src = imageUrl;
-    img.alt = "Image IA AstroFood pour ce signe et ce type de repas";
+    img.alt = "Image IA générée par AstroFood";
 
     imgWrapper.appendChild(img);
     recipesList.appendChild(imgWrapper);
   }
 
-  // 📦 Puis les cartes de recettes
+  // 🧾 Maintenant on affiche chaque recette comme avant
   for (const rec of recipes) {
     const card = document.createElement("div");
     card.className = "recipe-card";
@@ -750,27 +751,20 @@
     const title = document.createElement("div");
     title.className = "recipe-title";
     title.textContent =
-      (labelPrefix ? labelPrefix + " · " : "") +
-      (rec.title || "Recette sans titre");
+      (labelPrefix ? labelPrefix + " · " : "") + (rec.title || "Recette sans titre");
 
     const desc = document.createElement("div");
     desc.className = "recipe-desc";
-    desc.textContent =
-      rec.description || "Recette générée par AstroFood Chef-AI.";
+    desc.textContent = rec.description || "Recette générée par AstroFood Chef-AI.";
 
     const meta = document.createElement("div");
     meta.className = "recipe-meta";
-
-    if (rec.image) {
-      // si un jour tu décides de remplir rec.image depuis l'IA texte
-      meta.textContent = "📸 Image suggérée (texte) : " + rec.image;
-    } else if (imageUrl) {
-      // si on a l'image IA globale
-      meta.textContent = "📸 Image IA générée pour ce signe et ce type de repas.";
+    if (imageUrl) {
+      meta.textContent = "📸 Image IA générée pour ce signe et ce repas.";
+    } else if (rec.image) {
+      meta.textContent = "📸 Image (texte IA) : " + rec.image;
     } else {
-      // fallback texte si aucune image
-      meta.textContent =
-        "📸 Image IA : tu peux afficher une photo générique selon le signe & repas.";
+      meta.textContent = "📸 Pas d’image IA.";
     }
 
     const ingLabel = document.createElement("div");
@@ -807,59 +801,38 @@
   }
 }
 
-         btnGenerate.addEventListener("click", async () => {
-         const sign = document.getElementById("sign").value;
-         const state = document.getElementById("state").value;
-         const mealType = document.getElementById("mealType").value;
-         const lang = document.getElementById("lang").value;
+btnGenerate.addEventListener("click", async () => {
+  const sign = document.getElementById("sign").value;
+  const state = document.getElementById("state").value;
+  const mealType = document.getElementById("mealType").value;
+  const lang = document.getElementById("lang").value;
 
-         setChefAIStatus("⏳ Génération en cours…", false);
-         recipesList.innerHTML = '<div class="small-text">Chef-AI prépare tes recettes...</div>';
+  setChefAIStatus("⏳ Génération en cours…", false);
+  recipesList.innerHTML = '<div class="small-text">Chef-AI prépare tes recettes...</div>';
 
-       try {
-         const res = await fetch(API_BASE + "/api/chefai", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sign, state, mealType, lang })
+  try {
+    const res = await fetch(API_BASE + "/api/chefai", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sign, state, mealType, lang })
     });
 
-         const data = await res.json();
+    const data = await res.json();
 
-         if (!res.ok || !data.ok) {
-          console.error("Erreur Chef-AI:", data);
-          setChefAIStatus("❌ Erreur pendant la génération des recettes.", true);
-          recipesList.innerHTML =
-        '<div class="small-text">Aucune recette reçue. Vérifie ton backend ou ta clé OpenAI.</div>';
-        return;
-       }
+    if (!res.ok || !data.ok) {
+      setChefAIStatus("❌ Erreur pendant la génération.", true);
+      return;
+    }
 
-      // 👉 ici on passe aussi data.imageUrl à renderRecipes
-       renderRecipes(data.recipes || [], "", data.imageUrl || null);
-       setChefAIStatus("✅ Recettes générées avec succès.", false);
+    // 👉 ON PASSE ICI L'IMAGE IA À renderRecipes
+    renderRecipes(data.recipes || [], "", data.imageUrl || null);
 
-      } catch (err) {
-       console.error("Erreur JS /fetch /api/chefai:", err);
-       setChefAIStatus("❌ Erreur réseau ou serveur.", true);
-       recipesList.innerHTML =
-      '<div class="small-text">Impossible de contacter Chef-AI. Réessaie plus tard.</div>';
+    setChefAIStatus("✅ Recettes générées avec succès.", false);
+
+  } catch (err) {
+    setChefAIStatus("❌ Erreur réseau ou serveur.", true);
   }
 });
-
-     
-      btnGenerate.addEventListener("click", () => {
-        const sign = document.getElementById("sign").value;
-        const state = document.getElementById("state").value;
-        const mealType = document.getElementById("mealType").value;
-        const lang = document.getElementById("lang").value;
-
-        callChefAI({ sign, state, mealType, lang }, "");
-      });
-
-      btnClearRecipes.addEventListener("click", () => {
-        recipesList.innerHTML =
-          '<div class="small-text">Résultats effacés. Clique sur "Générer 3 recettes IA" pour relancer.</div>';
-        setChefAIStatus("");
-      });
 
       async function loadPacks() {
         try {
