@@ -577,19 +577,7 @@
           <div>
             <div class="card-title">Boutique AstroFood – Packs digitaux</div>
             <div class="card-sub">
-              Packs exposés par <code>/api/packs</code> (meta uniquement). Le paiement réel se fait sur LemonSqueezy.
-            </div>
-          </div>
-             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-             <button id="btn-reload-packs" class="btn-secondary btn" type="button">
-             🔁 Recharger les packs
-          </button>
-           <a href="astrofood_boutique_final.html" target="_blank" class="btn">
-           🛒 Ouvrir la boutique AstroFood Premium Gold
-           </a>
-        </div>
-          
-          <section id="boutique" class="section">
+                <section id="boutique" class="section">
          <h2 class="section-title">Boutique AstroFood – Packs digitaux</h2>
         <p class="section-subtitle">
          Packs en PDF / PNG livrés par e-mail après paiement (LemonSqueezy).
@@ -638,7 +626,27 @@
        </div>
       </section>
     </div>
-  
+              Packs exposés par <code>/api/packs</code> (meta uniquement). Le paiement réel se fait sur LemonSqueezy.
+            </div>
+          </div>
+             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+             <button id="btn-reload-packs" class="btn-secondary btn" type="button">
+             🔁 Recharger les packs
+          </button>
+           <a href="astrofood_boutique_final.html" target="_blank" class="btn">
+           🛒 Ouvrir la boutique AstroFood Premium Gold
+           </a>
+        </div>
+          <div id="shop-status" class="status"></div>
+
+        <div id="shop-grid" class="shop-grid">
+          <div class="small-text">
+            Chargement des packs… Si rien ne s’affiche, vérifie la route <code>/api/packs</code> côté serveur.
+          </div>
+        </div>
+      </section>
+    </div>
+
     <!-- Chat-AI bubble -->
     <button class="chat-toggle" id="chat-toggle">
       💬 Chat-AI
