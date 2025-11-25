@@ -1,3 +1,5 @@
+// api/chefai.js
+
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 if (!OPENAI_API_KEY) {
@@ -24,6 +26,9 @@ export default async function handler(req, res) {
     const safeLang = ["fr", "en", "ar"].includes(lang) ? lang : "fr";
     const safeState = state || "équilibre";
 
+    // =========================
+    // 🌍 LANGUE POUR LES RECETTES
+    // =========================
     let langInstruction;
     if (safeLang === "fr") {
       langInstruction =
@@ -36,6 +41,9 @@ export default async function handler(req, res) {
         "لغة الإجابة: العربية. يجب أن تكون جميع نصوص الوصفات (العنوان، الوصف، المكونات، خطوات التحضير) باللغة العربية.";
     }
 
+    // =========================
+    // 🍽️ PROMPT RECETTES
+    // =========================
     const userPrompt = `
 Génère 3 recettes complètes pour :
 
@@ -49,10 +57,10 @@ Respecte strictement ce format JSON :
   "recipes": [
     {
       "title": "Titre ou عنوان ou Title",
-      "image": "URL d'image illustrative (ou null)",
+      "image": null,
       "description": "Texte court pour présenter la recette",
-      "ingredients": ["ingrédient 1", "ingrédient 2", "..."],
-      "steps": ["Étape 1", "Étape 2", "..."]
+      "ingredients": ["ingrédient 1", "ingrédient 2"],
+      "steps": ["Étape 1", "Étape 2"]
     }
   ]
 }
@@ -61,11 +69,13 @@ Respecte strictement ce format JSON :
     const systemPrompt = `
 Tu es AstroFood Chef-AI, chef-nutritionniste expert en astrologie.
 Réponds UNIQUEMENT en ${langInstruction}.
- Garde un ton chaleureux, clair, facile à comprendre.
+Garde un ton chaleureux, clair, facile à comprendre.
 N'ajoute PAS de texte avant ou après le JSON.
-${langInstruction}
 `.trim();
 
+    // ===============================
+    // 🔥 APPEL IA POUR LES RECETTES
+    // ===============================
     const openaiResp = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -85,8 +95,7 @@ ${langInstruction}
     if (!openaiResp.ok) {
       const text = await openaiResp.text();
       console.error("❌ Erreur OpenAI /api/chefai:", text);
-      res.status(500).json({ ok: false, error: "Erreur OpenAI" });
-      return;
+      return res.status(500).json({ ok: false, error: "Erreur OpenAI" });
     }
 
     const data = await openaiResp.json();
@@ -97,17 +106,70 @@ ${langInstruction}
       parsed = JSON.parse(rawContent);
     } catch (e) {
       console.error("❌ JSON invalide renvoyé par l'IA:", rawContent);
-      res.status(500).json({
+      return res.status(500).json({
         ok: false,
         error: "Réponse IA invalide (JSON).",
       });
-      return;
     }
 
-    res.status(200).json({
-      ok: true,
-      recipes: parsed.recipes || [],
+    const recipes = parsed.recipes || [];
+
+    // ====================================
+    // 🖼️ IMAGE IA (UNIQUE POUR LE SIGN + REPAS)
+    // ====================================
+
+    // 🔥 Prompt image selon la langue
+    let imagePrompt = `
+Illustration food stylisée pour le signe astrologique ${sign}
+avec un thème ${mealType}. Style premium doré, ambiance AstroFood,
+très élégant, sans texte écrit.
+`;
+
+    if (safeLang === "en") {
+      imagePrompt = `
+Stylized food illustration representing zodiac sign ${sign},
+meal type: ${mealType}. Premium golden style, AstroFood branding,
+no text written on the image.
+`;
+    }
+
+    if (safeLang === "ar") {
+      imagePrompt = `
+صورة طعام فنية تمثل برج ${sign} مع طبق ${mealType}.
+أسلوب فاخر ذهبي بدون أي نص مكتوب على الصورة.
+`;
+    }
+
+    // Appel API image
+    const imageResp = await fetch("https://api.openai.com/v1/images/generations", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "gpt-image-1",
+        prompt: imagePrompt,
+        size: "512x512",
+        n: 1,
+      }),
     });
+
+    let imageUrl = null;
+    if (imageResp.ok) {
+      const imgData = await imageResp.json();
+      imageUrl = imgData?.data?.[0]?.url || null;
+    }
+
+    // =========================
+    // ✅ RÉPONSE FINALE
+    // =========================
+    return res.status(200).json({
+      ok: true,
+      recipes,
+      imageUrl,   // ←🔥 ajoute l'image ici
+    });
+
   } catch (err) {
     console.error("❌ Erreur serveur /api/chefai:", err);
     res.status(500).json({ ok: false, error: "Erreur serveur." });
