@@ -462,9 +462,16 @@
         </div>
         <div class="badge">Backend sécurisé – API privée</div>
       </header>
-
-      <section class="hero">
+        <div class="hero-actions">
+            <a href="#pack-12" class="btn btn-primary">
+          ⭐ Voir le pack 12 signes
+           </a>
+            <a href="#pack-romance" class="btn btn-ghost">
+           💘 Voir le pack Romance
+          </a>
+        </div>
         <div>
+    
           <h1>Chef-AI · Générateur de recettes par signe</h1>
           <p class="hero-sub">
             Choisis ton signe, ton état, le repas et la langue : ton serveur <strong>Chef-AI</strong> te renvoie
@@ -581,17 +588,57 @@
            🛒 Ouvrir la boutique AstroFood Premium Gold
            </a>
         </div>
+          
+          <section id="boutique" class="section">
+         <h2 class="section-title">Boutique AstroFood – Packs digitaux</h2>
+        <p class="section-subtitle">
+         Packs en PDF / PNG livrés par e-mail après paiement (LemonSqueezy).
+       </p>
 
-        <div id="shop-status" class="status"></div>
+       <div class="shop-grid">
+       <!-- Pack 12 signes -->
+        <article class="shop-card" id="pack-12">
+       <h3>Pack Premium 12 Signes</h3>
+      <p>
+        12 cartes digitales AstroFood (1 par signe), version Premium Gold :
+        couleurs personnalisées, conseils nutrition & humeur pour chaque signe.
+      </p>
+      <ul class="shop-list">
+        <li>12 cartes digitales HD (PNG + PDF)</li>
+        <li>FR / EN disponibles</li>
+        <li>Utilisable pour réseaux sociaux, menus, e-boutique</li>
+      </ul>
+      <div class="shop-footer">
+        <span class="price">29 €</span>
+        <button class="btn btn-primary" type="button">
+          🛒 Tester une carte
+        </button>
+      </div>
+    </article>
 
-        <div id="shop-grid" class="shop-grid">
-          <div class="small-text">
-            Chargement des packs… Si rien ne s’affiche, vérifie la route <code>/api/packs</code> côté serveur.
-          </div>
-        </div>
+    <!-- Pack Romance -->
+    <article class="shop-card" id="pack-romance">
+      <h3>Pack Romance & Dîners Love</h3>
+      <p>
+        6 cartes spéciales “love” avec menus romantiques inspirés des signes :
+        idéal pour soirées, St-Valentin, anniversaires.
+      </p>
+      <ul class="shop-list">
+        <li>6 cartes digitales (PNG + PDF)</li>
+        <li>Idées de dîners romantiques par signe</li>
+        <li>Bonus : 3 boissons afro-love</li>
+       </ul>
+       <div class="shop-footer">
+        <span class="price">17 €</span>
+        <button class="btn btn-secondary" type="button">
+          💌 Voir un exemple
+        </button>
+       </div>
+       </article>
+       </div>
       </section>
     </div>
-
+  
     <!-- Chat-AI bubble -->
     <button class="chat-toggle" id="chat-toggle">
       💬 Chat-AI
