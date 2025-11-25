@@ -4,7 +4,7 @@ const CACHE_NAME = "astrofood-cache-v1";
 // Mets ici les fichiers importants à mettre en cache
 const URLS_TO_CACHE = [
   "/",
-  "/AstroFood Premium Gold ",
+  "/index.html ",
   "/assets/icon-192.png",
   "/assets/icon-512.png"
 ];
@@ -37,4 +37,5 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+
 
