@@ -60,7 +60,8 @@ Respecte strictement ce format JSON :
 
     const systemPrompt = `
 Tu es AstroFood Chef-AI, chef-nutritionniste expert en astrologie.
-Réponds UNIQUEMENT en JSON valide.
+Réponds UNIQUEMENT en ${langInstruction}.
+ Garde un ton chaleureux, clair, facile à comprendre.
 N'ajoute PAS de texte avant ou après le JSON.
 ${langInstruction}
 `.trim();
@@ -112,3 +113,4 @@ ${langInstruction}
     res.status(500).json({ ok: false, error: "Erreur serveur." });
   }
 }
+
