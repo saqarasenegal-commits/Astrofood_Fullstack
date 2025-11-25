@@ -3,7 +3,7 @@
   "name": "AstroFood Premium Gold",
   "short_name": "AstroFood",
   "description": "Recettes IA par signe – Chef-AI, cartes digitales et packs astrologiques.",
-  "start_url": "/Astrofood PremiumGold.html",
+  "start_url": "/index.html",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#020617",
@@ -21,4 +21,5 @@
     }
   ]
 }
+
 
