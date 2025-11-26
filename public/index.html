@@ -889,7 +889,7 @@ btnGenerate.addEventListener("click", async () => {
             btnTest.textContent = "🍽 Tester 1 recette IA";
             btnTest.addEventListener("click", () => {
               const sign = document.getElementById("sign").value || "Lion";
-              callChefAI(
+              callChefai(
                 {
                   sign,
                   state: "équilibre",
