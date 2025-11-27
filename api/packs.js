@@ -1,4 +1,4 @@
-// api/packs.js
+/ pages/api/packs.js
 
 export default function handler(req, res) {
   if (req.method !== "GET") {
@@ -8,25 +8,39 @@ export default function handler(req, res) {
 
   const packs = [
     {
-      id: "pack_12_signes",
-      name: "Pack 12 Signes – Carte journalière",
+      id: "premium-12-signs",
+      name: "AstroFood Premium Gold – Pack 12 signes",
+      level: "Édition AstroFood Premium Gold",
+      description:
+        "12 cartes digitales (1 par signe) avec 3 recettes par jour (petit-déj, déjeuner, dîner), FR / EN / AR.",
       priceCfa: 15000,
       currency: "XOF",
-      description: "12 cartes digitales Premium (1 par signe, 3 repas / jour).",
-      level: "Premium Gold",
-      checkoutUrl: "https://your-lemon-link.com/pack_12_signes",
+      checkoutUrl: "https://astrofood-premium-gold.com/checkout/premium12", // à remplacer plus tard par ton lien LemonSqueezy
     },
     {
-      id: "pack_love",
-      name: "Pack Love & Romance",
+      id: "breakfast-energy",
+      name: "Pack Petit-déjeuner Énergie – 12 signes",
+      level: "Édition AstroFood",
+      description:
+        "Recettes de petit-déjeuner pour booster l’énergie selon chaque signe astrologique.",
       priceCfa: 9000,
       currency: "XOF",
-      description: "Recettes romantiques par signe, pour dîner à deux.",
-      level: "Special Love Edition",
-      checkoutUrl: "https://your-lemon-link.com/pack_love",
+      checkoutUrl: "https://astrofood-premium-gold.com/checkout/breakfast", // placeholder
+    },
+    {
+      id: "love-dinners",
+      name: "Pack Love & Dîners Romantiques",
+      level: "Édition AstroFood Romance",
+      description:
+        "Recettes & dîners romantiques cosy selon les signes, parfait pour soirées love.",
+      priceCfa: 6000,
+      currency: "XOF",
+      checkoutUrl: "https://astrofood-premium-gold.com/checkout/love", // placeholder
     },
   ];
 
-  res.status(200).json({ ok: true, packs });
+  res.status(200).json({
+    ok: true,
+    packs,
+  });
 }
-
