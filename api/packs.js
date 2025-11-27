@@ -1,45 +1,46 @@
-/ pages/api/packs.js
+// pages/api/packs.js
 
 export default function handler(req, res) {
   if (req.method !== "GET") {
-    res.status(405).json({ ok: false, error: "Method not allowed" });
-    return;
+    return res
+      .status(405)
+      .json({ ok: false, error: "Method not allowed" });
   }
 
   const packs = [
     {
-      id: "premium-12-signs",
-      name: "AstroFood Premium Gold – Pack 12 signes",
-      level: "Édition AstroFood Premium Gold",
+      id: "premium-12-signes",
+      name: "AstroFood Premium Gold - Pack 12 signes",
+      level: "Edition AstroFood Premium Gold",
       description:
-        "12 cartes digitales (1 par signe) avec 3 recettes par jour (petit-déj, déjeuner, dîner), FR / EN / AR.",
-      priceCfa: 15000,
+        "12 cartes digitales (1 par signe) avec 3 recettes par jour (petit-dejeuner, dejeuner, diner).",
+      priceCfa: 29000,
       currency: "XOF",
-      checkoutUrl: "https://astrofood-premium-gold.com/checkout/premium12", // à remplacer plus tard par ton lien LemonSqueezy
+      checkoutUrl: "https://example.com/checkout/premium-12",
     },
     {
-      id: "breakfast-energy",
-      name: "Pack Petit-déjeuner Énergie – 12 signes",
-      level: "Édition AstroFood",
+      id: "breakfast-energie",
+      name: "Pack Petit-dejeuner Energie - 12 signes",
+      level: "Edition AstroFood",
       description:
-        "Recettes de petit-déjeuner pour booster l’énergie selon chaque signe astrologique.",
-      priceCfa: 9000,
+        "Recettes de petit-dejeuner pour booster l'energie selon chaque signe astrologique.",
+      priceCfa: 17000,
       currency: "XOF",
-      checkoutUrl: "https://astrofood-premium-gold.com/checkout/breakfast", // placeholder
+      checkoutUrl: "https://example.com/checkout/breakfast",
     },
     {
       id: "love-dinners",
-      name: "Pack Love & Dîners Romantiques",
-      level: "Édition AstroFood Romance",
+      name: "Pack Love et Diners Romantiques",
+      level: "Edition AstroFood Romance",
       description:
-        "Recettes & dîners romantiques cosy selon les signes, parfait pour soirées love.",
-      priceCfa: 6000,
+        "Recettes et diners romantiques cosy selon les signes, ideal pour soirees love.",
+      priceCfa: 19000,
       currency: "XOF",
-      checkoutUrl: "https://astrofood-premium-gold.com/checkout/love", // placeholder
+      checkoutUrl: "https://example.com/checkout/love",
     },
   ];
 
-  res.status(200).json({
+  return res.status(200).json({
     ok: true,
     packs,
   });
